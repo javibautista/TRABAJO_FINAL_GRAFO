@@ -38,12 +38,14 @@ class Grafo:
         else:
             return False
     def existea(self,v,w): # v -> Bool
-        if w in self.grafo[v]:
-            return True
+        if self.existev(v) and self.existev(w):
+            if w in self.grafo[v]:
+                return True
         return False
     def borrarv(self,v): #borra el vertice v del grafo
         if v in self.grafo:#existev(v):
-            self.grafo.pop(v)
+            #self.grafo.pop(v)
+            del self.grafo[v]
     def agregara(self,v,w,p): # agrega la arista vw al grafo con el peso p (deben existir v y w)
         #self.grafo[v][w]=p
         if self.existev(v) and self.existev(w):#self.existea(v,w):
@@ -52,12 +54,15 @@ class Grafo:
             self.grafo[v][w]=p
     def borrara(self,v,w): #borra la arista vw
         #if self.existea(v,w):
-        self.grafo[v].pop(w)
-        self.grafo.pop(v)
+        #self.grafo[v].pop(w)
+        #self.grafo.pop(v)
+        del self.grafo[v]
     def peso(self,v,w): # devuelve el peso de la arista vw
         return self.grafo[v].get(w)
     def vecinos(self,v): # v -> [v]
-        return self.grafo[v].list(keys())
+        if self.existev(v):
+            return list(self.grafo[v].keys())
+        return []
     def nvertices(self): # devuelve la cantidad de vertices de G
         pass
     def vertices(self): # devuelve una lista con los vertices de G
@@ -177,7 +182,7 @@ class Grafo:
             v = cola.pop()
             vecinosnv = []
             for i in vecinos():
-                if i not in result
+                if i not in result:
                     cola.insert(0, i)
                     result.append()
                     
